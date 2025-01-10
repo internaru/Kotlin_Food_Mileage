@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.inappkeyboard.MainActivity">
+    tools:context="com.shlee.inappkeyboard.inappkeyboard.example.inappkeyboard.MainActivity">
 
     <EditText
         android:id="@+id/editText"
@@ -15,7 +15,7 @@
         android:padding="5dp"
         android:layout_alignParentTop="true"/>
 
-    <com.example.inappkeyboard.MyKeyboard
+    <com.shlee.inappkeyboard.MyKeyboard
         android:id="@+id/keyboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

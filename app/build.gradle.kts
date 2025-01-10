@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.inappkeyboard"
+    namespace = "com.shlee.inappkeyboard"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.inappkeyboard"
+        applicationId = "com.shlee.inappkeyboard"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
