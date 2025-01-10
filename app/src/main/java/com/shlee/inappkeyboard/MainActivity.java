@@ -1,4 +1,4 @@
-package com.example.inappkeyboard;
+package com.shlee.inappkeyboard;
 
 import android.os.Bundle;
 import android.text.InputType;

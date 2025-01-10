@@ -1,4 +1,4 @@
-package com.example.inappkeyboard;
+package com.shlee.inappkeyboard;
 
 import android.content.Context;
 

@@ -4,18 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.inappkeyboard.MainActivity">
+    tools:context="com.shlee.inappkeyboard.MainActivity">
 
     <EditText
         android:id="@+id/editText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#c9c9f1"
+        android:layout_alignParentTop="true"
         android:layout_margin="50dp"
+        android:background="#c9c9f1"
+        android:maxLines="1"
+        android:minHeight="48dp"
         android:padding="5dp"
-        android:layout_alignParentTop="true"/>
+        tools:ignore="SpeakableTextPresentCheck,VisualLintTextFieldSize" />
 
-    <com.example.inappkeyboard.MyKeyboard
+    <com.shlee.inappkeyboard.MyKeyboard
         android:id="@+id/keyboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
