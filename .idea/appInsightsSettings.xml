@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.shlee.inappkeyboard" />
+                  <option name="mobileSdkAppId" value="1:90986181458:android:5a9bf7329332798335808b" />
+                  <option name="projectId" value="kotlin-food-mileage" />
+                  <option name="projectNumber" value="90986181458" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

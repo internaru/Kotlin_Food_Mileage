@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "90986181458",
+    "project_id": "kotlin-food-mileage",
+    "storage_bucket": "kotlin-food-mileage.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:90986181458:android:5a9bf7329332798335808b",
+        "android_client_info": {
+          "package_name": "com.shlee.inappkeyboard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXOeFrbCd1br1jn4eDwl87ehC4DW51SZM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

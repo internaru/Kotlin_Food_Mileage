@@ -60,7 +60,6 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
         mButton7 = (Button) findViewById(R.id.button_7);
         mButton8 = (Button) findViewById(R.id.button_8);
         mButton9 = (Button) findViewById(R.id.button_9);
-        mButton0 = (Button) findViewById(R.id.button_0);
         mButtonDelete = (Button) findViewById(R.id.button_delete);
         mButtonEnter = (Button) findViewById(R.id.button_enter);
 
@@ -74,7 +73,6 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
         mButton7.setOnClickListener(this);
         mButton8.setOnClickListener(this);
         mButton9.setOnClickListener(this);
-        mButton0.setOnClickListener(this);
         mButtonDelete.setOnClickListener(this);
         mButtonEnter.setOnClickListener(this);
 
@@ -88,7 +86,6 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
         keyValues.put(R.id.button_7, "7");
         keyValues.put(R.id.button_8, "8");
         keyValues.put(R.id.button_9, "9");
-        keyValues.put(R.id.button_0, "0");
         keyValues.put(R.id.button_enter, "\n");
     }
 
