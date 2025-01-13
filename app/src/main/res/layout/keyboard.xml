@@ -128,9 +128,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:padding="10dp"
                 android:text="Delete"
                 android:textSize="20sp"
-                android:padding="10dp"
+                android:textColor="@android:color/holo_red_light"
                 tools:ignore="HardcodedText" />
 
             <Button
@@ -138,9 +139,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:padding="10dp"
                 android:text="Enter"
                 android:textSize="20sp"
-                android:padding="10dp"
+                android:textColor="@android:color/holo_green_light"
                 tools:ignore="HardcodedText" />
 
         </LinearLayout>
