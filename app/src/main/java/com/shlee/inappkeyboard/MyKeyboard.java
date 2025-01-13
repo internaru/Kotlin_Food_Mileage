@@ -51,17 +51,17 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
 
         // initialize buttons
         LayoutInflater.from(context).inflate(R.layout.keyboard, this, true);
-        mButton1 = (Button) findViewById(R.id.button_1);
-        mButton2 = (Button) findViewById(R.id.button_2);
-        mButton3 = (Button) findViewById(R.id.button_3);
-        mButton4 = (Button) findViewById(R.id.button_4);
-        mButton5 = (Button) findViewById(R.id.button_5);
-        mButton6 = (Button) findViewById(R.id.button_6);
-        mButton7 = (Button) findViewById(R.id.button_7);
-        mButton8 = (Button) findViewById(R.id.button_8);
-        mButton9 = (Button) findViewById(R.id.button_9);
-        mButtonDelete = (Button) findViewById(R.id.button_delete);
-        mButtonEnter = (Button) findViewById(R.id.button_enter);
+        mButton1 = findViewById(R.id.button_1);
+        mButton2 = findViewById(R.id.button_2);
+        mButton3 = findViewById(R.id.button_3);
+        mButton4 = findViewById(R.id.button_4);
+        mButton5 = findViewById(R.id.button_5);
+        mButton6 = findViewById(R.id.button_6);
+        mButton7 = findViewById(R.id.button_7);
+        mButton8 = findViewById(R.id.button_8);
+        mButton9 = findViewById(R.id.button_9);
+        mButtonDelete = findViewById(R.id.button_delete);
+        mButtonEnter = findViewById(R.id.button_enter);
 
         // set button click listeners
         mButton1.setOnClickListener(this);
