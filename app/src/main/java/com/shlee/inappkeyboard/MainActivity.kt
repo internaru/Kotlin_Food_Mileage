@@ -16,8 +16,8 @@ class MainActivity : AppCompatActivity() {
         val keyboard = findViewById<View>(R.id.keyboard) as MyKeyboard
 
         // prevent system keyboard from appearing when EditText is tapped
-        editText.setRawInputType(InputType.TYPE_CLASS_TEXT)
-        editText.setTextIsSelectable(true)
+        editText.setRawInputType(InputType.TYPE_CLASS_NUMBER)
+        editText.setTextIsSelectable(false)
 
         // pass the InputConnection from the EditText to the keyboard
         val ic = editText.onCreateInputConnection(EditorInfo())

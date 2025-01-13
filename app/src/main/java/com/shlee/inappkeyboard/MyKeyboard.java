@@ -36,7 +36,6 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
     private Button mButton7;
     private Button mButton8;
     private Button mButton9;
-    private Button mButton0;
     private Button mButtonDelete;
     private Button mButtonEnter;
 
@@ -106,7 +105,17 @@ public class MyKeyboard extends LinearLayout implements View.OnClickListener {
                 // delete the selection
                 inputConnection.commitText("", 1);
             }
-        } else {
+        }
+        else if (v.getId() == R.id.button_enter) {
+            String text = (String)inputConnection.getTextBeforeCursor(4, 0);
+            if(text.length() == 4) {
+                inputConnection.deleteSurroundingText(1, 0);
+                inputConnection.deleteSurroundingText(1, 0);
+                inputConnection.deleteSurroundingText(1, 0);
+                inputConnection.deleteSurroundingText(1, 0);
+            }
+        }
+        else {
             String value = keyValues.get(v.getId());
             inputConnection.commitText(value, 1);
         }
