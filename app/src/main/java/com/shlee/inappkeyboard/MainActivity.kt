@@ -7,10 +7,14 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //val myRef = Firebase.database.reference
+        //val userId = "userid-dummy"
 
         val editText = findViewById<View>(R.id.editText) as EditText
         val keyboard = findViewById<View>(R.id.keyboard) as MyKeyboard

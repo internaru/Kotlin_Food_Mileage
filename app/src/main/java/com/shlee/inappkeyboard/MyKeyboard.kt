@@ -3,12 +3,16 @@ package com.shlee.inappkeyboard
 import android.content.Context
 import android.text.TextUtils
 import android.util.AttributeSet
+import android.util.Log
 import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputConnection
 import android.widget.Button
 import android.widget.LinearLayout
+import android.widget.Toast
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class MyKeyboard @JvmOverloads constructor(
     context: Context,
@@ -31,10 +35,13 @@ class MyKeyboard @JvmOverloads constructor(
 
     // This will map the button resource id to the String value that we want to
     // input when that button is clicked.
-    var keyValues: SparseArray<String> = SparseArray()
+    private var keyValues: SparseArray<String> = SparseArray()
 
     // Our communication link to the EditText
-    var inputConnection1: InputConnection? = null
+    private var inputConnection1: InputConnection? = null
+
+    val myeRf = Firebase.database.reference
+    val mileage = "Mileage"
 
     // constructors
     init {
@@ -102,10 +109,51 @@ class MyKeyboard @JvmOverloads constructor(
         } else if (v.id == R.id.button_enter) {
             val text = inputConnection1!!.getTextBeforeCursor(4, 0) as String?
             if (text!!.length == 4) {
-                inputConnection1!!.deleteSurroundingText(1, 0)
-                inputConnection1!!.deleteSurroundingText(1, 0)
-                inputConnection1!!.deleteSurroundingText(1, 0)
-                inputConnection1!!.deleteSurroundingText(1, 0)
+                var newData: Int = 0
+                myeRf.child(text.toString()).child(mileage).get().addOnSuccessListener {
+                    Log.i("firebase", "Got value OK!! ${it.value}")
+
+                    // Success -> Update User
+                    if(it.value != null) {
+                        newData = it.value.toString().toInt()
+                        newData++
+                        myeRf.child(text.toString()).child(mileage).setValue(newData.toString()).addOnSuccessListener {
+                                Toast.makeText(
+                                    this.getContext(),
+                                    "User update OK",
+                                    Toast.LENGTH_SHORT
+                                ).show();
+                            }.addOnFailureListener {
+                            Toast.makeText(
+                                this.getContext(),
+                                "User update Fail !",
+                                Toast.LENGTH_SHORT
+                            ).show();
+                        }
+                        inputConnection1!!.deleteSurroundingText(1, 0)
+                        inputConnection1!!.deleteSurroundingText(1, 0)
+                        inputConnection1!!.deleteSurroundingText(1, 0)
+                        inputConnection1!!.deleteSurroundingText(1, 0)
+                    }
+                    // Success -> New User
+                    else{
+                        myeRf.child(text.toString()).child(mileage).setValue("1").addOnSuccessListener {
+                            Toast.makeText(this.getContext(), "New user save OK", Toast.LENGTH_SHORT).show();
+                        }.addOnFailureListener{
+                            Toast.makeText(this.getContext(), "New user save Fail !", Toast.LENGTH_SHORT).show();
+                        }
+                        inputConnection1!!.deleteSurroundingText(1, 0)
+                        inputConnection1!!.deleteSurroundingText(1, 0)
+                        inputConnection1!!.deleteSurroundingText(1, 0)
+                        inputConnection1!!.deleteSurroundingText(1, 0)
+                    }
+                }.addOnFailureListener {
+                    Log.i("firebase", "Got value Fail!!")
+                }
+
+            }
+            else {
+                Toast.makeText(this.getContext(), "Please enter 4 digits !", Toast.LENGTH_SHORT).show();
             }
         } else {
             val value = keyValues[v.id]
