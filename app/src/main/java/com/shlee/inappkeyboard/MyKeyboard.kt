@@ -30,6 +30,7 @@ class MyKeyboard @JvmOverloads constructor(
     private var mButton7: Button? = null
     private var mButton8: Button? = null
     private var mButton9: Button? = null
+    private var mButton0: Button? = null
     private var mButtonDelete: Button? = null
     private var mButtonEnter: Button? = null
 
@@ -61,6 +62,7 @@ class MyKeyboard @JvmOverloads constructor(
         mButton7 = findViewById(R.id.button_7)
         mButton8 = findViewById(R.id.button_8)
         mButton9 = findViewById(R.id.button_9)
+        mButton0 = findViewById(R.id.button_0)
         mButtonDelete = findViewById(R.id.button_delete)
         mButtonEnter = findViewById(R.id.button_enter)
 
@@ -74,6 +76,7 @@ class MyKeyboard @JvmOverloads constructor(
         mButton7!!.setOnClickListener(this)
         mButton8!!.setOnClickListener(this)
         mButton9!!.setOnClickListener(this)
+        mButton0!!.setOnClickListener(this)
         mButtonDelete!!.setOnClickListener(this)
         mButtonEnter!!.setOnClickListener(this)
 
@@ -87,7 +90,38 @@ class MyKeyboard @JvmOverloads constructor(
         keyValues.put(R.id.button_7, "7")
         keyValues.put(R.id.button_8, "8")
         keyValues.put(R.id.button_9, "9")
+        keyValues.put(R.id.button_0, "0")
         keyValues.put(R.id.button_enter, "\n")
+    }
+
+    private fun all_button_enable(boolean: Boolean) {
+        mButton1!!.setClickable(boolean)
+        mButton2!!.setClickable(boolean)
+        mButton3!!.setClickable(boolean)
+        mButton4!!.setClickable(boolean)
+        mButton5!!.setClickable(boolean)
+        mButton6!!.setClickable(boolean)
+        mButton7!!.setClickable(boolean)
+        mButton8!!.setClickable(boolean)
+        mButton9!!.setClickable(boolean)
+        mButton0!!.setClickable(boolean)
+        mButtonDelete!!.setClickable(boolean)
+        mButtonEnter!!.setClickable(boolean)
+    }
+
+    private fun all_button_visible(boolean: Boolean) {
+        mButton1!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+        mButton2!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+        mButton3!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+        mButton4!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+        mButton5!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+        mButton6!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+        mButton7!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+        mButton8!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+        mButton9!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+        mButton0!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+        mButtonDelete!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+        mButtonEnter!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
     }
 
     override fun onClick(v: View) {
@@ -110,6 +144,10 @@ class MyKeyboard @JvmOverloads constructor(
             val text = inputConnection1!!.getTextBeforeCursor(4, 0) as String?
             if (text!!.length == 4) {
                 var newData: Int = 0
+
+                all_button_enable(false)
+                //all_button_visible(false)
+
                 myeRf.child(text.toString()).child(mileage).get().addOnSuccessListener {
                     Log.i("firebase", "Got value OK!! ${it.value}")
 
@@ -120,7 +158,7 @@ class MyKeyboard @JvmOverloads constructor(
                         myeRf.child(text.toString()).child(mileage).setValue(newData.toString()).addOnSuccessListener {
                                 Toast.makeText(
                                     this.getContext(),
-                                    "User update OK",
+                                    "Your Point : $newData",
                                     Toast.LENGTH_SHORT
                                 ).show();
                             }.addOnFailureListener {
@@ -134,6 +172,9 @@ class MyKeyboard @JvmOverloads constructor(
                         inputConnection1!!.deleteSurroundingText(1, 0)
                         inputConnection1!!.deleteSurroundingText(1, 0)
                         inputConnection1!!.deleteSurroundingText(1, 0)
+
+                        all_button_enable(true)
+                        //all_button_visible(true)
                     }
                     // Success -> New User
                     else{
@@ -146,6 +187,9 @@ class MyKeyboard @JvmOverloads constructor(
                         inputConnection1!!.deleteSurroundingText(1, 0)
                         inputConnection1!!.deleteSurroundingText(1, 0)
                         inputConnection1!!.deleteSurroundingText(1, 0)
+
+                        all_button_enable(true)
+                        //all_button_visible(true)
                     }
                 }.addOnFailureListener {
                     Log.i("firebase", "Got value Fail!!")
