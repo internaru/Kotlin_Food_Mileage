@@ -43,7 +43,6 @@ class MyKeyboard @JvmOverloads constructor(
     private var inputConnection1: InputConnection? = null
 
     val myeRf = Firebase.database.reference
-    val userInfo = "userInfo"
     val dateAndtime: LocalDateTime = LocalDateTime.now()
     val onlyDate: LocalDate = LocalDate.now()
 
@@ -153,14 +152,14 @@ class MyKeyboard @JvmOverloads constructor(
 
                 val userData = UserData("NoData","1")
                 myeRf.child(this.onlyDate.toString()).child(text.toString()).setValue(userData).addOnSuccessListener {
-                    Toast.makeText(this.getContext(), "New user save OK", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this.getContext(), "New user save OK", Toast.LENGTH_SHORT).show()
                     inputConnection1!!.deleteSurroundingText(1, 0)
                     inputConnection1!!.deleteSurroundingText(1, 0)
                     inputConnection1!!.deleteSurroundingText(1, 0)
                     inputConnection1!!.deleteSurroundingText(1, 0)
                     all_button_enable(true)
                 }.addOnFailureListener{
-                    Toast.makeText(this.getContext(), "New user save Fail !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this.getContext(), "New user save Fail !", Toast.LENGTH_SHORT).show()
                     inputConnection1!!.deleteSurroundingText(1, 0)
                     inputConnection1!!.deleteSurroundingText(1, 0)
                     inputConnection1!!.deleteSurroundingText(1, 0)
@@ -169,7 +168,7 @@ class MyKeyboard @JvmOverloads constructor(
                 }
             }
             else {
-                Toast.makeText(this.getContext(), "Please enter 4 digits !", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.getContext(), "Please enter 4 digits !", Toast.LENGTH_SHORT).show()
             }
         } else {
             val value = keyValues[v.id]
