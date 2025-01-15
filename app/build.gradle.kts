@@ -14,7 +14,7 @@ android {
 
     defaultConfig {
         applicationId = "com.shlee.inappkeyboard"
-        minSdk = 24
+        minSdk = 26
         //noinspection OldTargetApi
         targetSdk = 34
         versionCode = 1
