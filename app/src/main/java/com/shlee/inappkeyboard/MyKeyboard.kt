@@ -3,6 +3,7 @@ package com.shlee.inappkeyboard
 import android.content.Context
 import android.text.TextUtils
 import android.util.AttributeSet
+import android.util.Log
 import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
@@ -12,8 +13,6 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import java.time.LocalDate
-import java.time.LocalDateTime
 
 class MyKeyboard @JvmOverloads constructor(
     context: Context,
@@ -43,8 +42,7 @@ class MyKeyboard @JvmOverloads constructor(
     private var inputConnection1: InputConnection? = null
 
     val myeRf = Firebase.database.reference
-    val dateAndtime: LocalDateTime = LocalDateTime.now()
-    val onlyDate: LocalDate = LocalDate.now()
+    val mileage = "Mileage"
 
     // constructors
     init {
@@ -126,7 +124,7 @@ class MyKeyboard @JvmOverloads constructor(
         mButtonEnter!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
     }
 
-    override fun onClick(v: View) { // test
+    override fun onClick(v: View) {
         // do nothing if the InputConnection has not been set yet
 
         if (inputConnection1 == null) return
@@ -143,32 +141,63 @@ class MyKeyboard @JvmOverloads constructor(
                 inputConnection1!!.commitText("", 1)
             }
         } else if (v.id == R.id.button_enter) {
-
             val text = inputConnection1!!.getTextBeforeCursor(4, 0) as String?
             if (text!!.length == 4) {
+                var newData: Int = 0
 
                 all_button_enable(false)
                 //all_button_visible(false)
 
-                val userData = UserData("NoData","1")
-                myeRf.child(this.onlyDate.toString()).child(text.toString()).setValue(userData).addOnSuccessListener {
-                    Toast.makeText(this.getContext(), "New user save OK", Toast.LENGTH_SHORT).show()
-                    inputConnection1!!.deleteSurroundingText(1, 0)
-                    inputConnection1!!.deleteSurroundingText(1, 0)
-                    inputConnection1!!.deleteSurroundingText(1, 0)
-                    inputConnection1!!.deleteSurroundingText(1, 0)
-                    all_button_enable(true)
-                }.addOnFailureListener{
-                    Toast.makeText(this.getContext(), "New user save Fail !", Toast.LENGTH_SHORT).show()
-                    inputConnection1!!.deleteSurroundingText(1, 0)
-                    inputConnection1!!.deleteSurroundingText(1, 0)
-                    inputConnection1!!.deleteSurroundingText(1, 0)
-                    inputConnection1!!.deleteSurroundingText(1, 0)
-                    all_button_enable(true)
+                myeRf.child(text.toString()).child(mileage).get().addOnSuccessListener {
+                    Log.i("firebase", "Got value OK!! ${it.value}")
+
+                    // Success -> Update User
+                    if(it.value != null) {
+                        newData = it.value.toString().toInt()
+                        newData++
+                        myeRf.child(text.toString()).child(mileage).setValue(newData.toString()).addOnSuccessListener {
+                                Toast.makeText(
+                                    this.getContext(),
+                                    "Your Point : $newData",
+                                    Toast.LENGTH_SHORT
+                                ).show();
+                            }.addOnFailureListener {
+                            Toast.makeText(
+                                this.getContext(),
+                                "User update Fail !",
+                                Toast.LENGTH_SHORT
+                            ).show();
+                        }
+                        inputConnection1!!.deleteSurroundingText(1, 0)
+                        inputConnection1!!.deleteSurroundingText(1, 0)
+                        inputConnection1!!.deleteSurroundingText(1, 0)
+                        inputConnection1!!.deleteSurroundingText(1, 0)
+
+                        all_button_enable(true)
+                        //all_button_visible(true)
+                    }
+                    // Success -> New User
+                    else{
+                        myeRf.child(text.toString()).child(mileage).setValue("1").addOnSuccessListener {
+                            Toast.makeText(this.getContext(), "New user save OK", Toast.LENGTH_SHORT).show();
+                        }.addOnFailureListener{
+                            Toast.makeText(this.getContext(), "New user save Fail !", Toast.LENGTH_SHORT).show();
+                        }
+                        inputConnection1!!.deleteSurroundingText(1, 0)
+                        inputConnection1!!.deleteSurroundingText(1, 0)
+                        inputConnection1!!.deleteSurroundingText(1, 0)
+                        inputConnection1!!.deleteSurroundingText(1, 0)
+
+                        all_button_enable(true)
+                        //all_button_visible(true)
+                    }
+                }.addOnFailureListener {
+                    Log.i("firebase", "Got value Fail!!")
                 }
+
             }
             else {
-                Toast.makeText(this.getContext(), "Please enter 4 digits !", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this.getContext(), "Please enter 4 digits !", Toast.LENGTH_SHORT).show();
             }
         } else {
             val value = keyValues[v.id]
