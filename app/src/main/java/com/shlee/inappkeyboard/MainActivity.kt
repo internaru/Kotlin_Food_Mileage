@@ -12,9 +12,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //val myRef = Firebase.database.reference
-        //val userId = "userid-dummy"
-
         val editText = findViewById<View>(R.id.editText) as EditText
         val keyboard = findViewById<View>(R.id.keyboard) as MyKeyboard
 
