@@ -126,7 +126,7 @@ class MyKeyboard @JvmOverloads constructor(
         mButtonEnter!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
     }
 
-    override fun onClick(v: View) {
+    override fun onClick(v: View) { // test
         // do nothing if the InputConnection has not been set yet
 
         if (inputConnection1 == null) return
