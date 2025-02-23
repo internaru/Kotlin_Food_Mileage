@@ -30,7 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:paddingStart="10dp"
-            android:text="Grade 6" />
+            android:text="6"
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/radioButton_G7"
@@ -38,7 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:paddingStart="10dp"
-            android:text="Grade 7" />
+            android:text="7"
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/radioButton_G8"
@@ -46,7 +48,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:paddingStart="10dp"
-            android:text="Grade 8" />
+            android:text="8"
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/radioButton_G9"
@@ -54,7 +57,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:paddingStart="10dp"
-            android:text="Grade 9" />
+            android:text="9"
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/radioButton_G10"
@@ -62,7 +66,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:paddingStart="10dp"
-            android:text="Grade 10" />
+            android:text="10"
+            android:textSize="20sp" />
 
         <RadioButton
             android:id="@+id/radioButton_G11"
@@ -70,7 +75,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:paddingStart="10dp"
-            android:text="Grade 11" />
+            android:text="11"
+            android:textSize="20sp" />
 
     </RadioGroup>
 
@@ -84,11 +90,13 @@
 
         <TextView
             android:id="@+id/textView_Phone"
-            android:layout_width="wrap_content"
+            android:layout_width="58dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Phone :"
-            android:textSize="24sp" />
+            android:textColor="#2196F3"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView_PhoneNum"
@@ -96,15 +104,19 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="0"
-            android:textSize="24sp" />
+            android:textColor="#2196F3"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView_Grade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="63dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Grade"
-            android:textSize="24sp" />
+            android:text="Grade :"
+            android:textColor="#009688"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView_GradeNum"
@@ -112,7 +124,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="0"
-            android:textSize="24sp" />
+            android:textColor="#009688"
+            android:textSize="24sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
@@ -128,15 +142,18 @@
             android:layout_marginRight="20dp"
             android:layout_weight="1"
             android:text="OK"
-            android:textColor="@android:color/holo_green_light" />
+            android:textColor="@android:color/holo_green_light"
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/button_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:text="Cancel"
-            android:textColor="@android:color/holo_red_light" />
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="24sp" />
     </LinearLayout>
 
 </LinearLayout>

@@ -12,11 +12,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import java.security.AccessController.getContext
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 class UserDataActivity : AppCompatActivity() {
     private lateinit var radioGroup: RadioGroup
-    private lateinit var okButton: Button
+    private lateinit var button_ok: Button
     private lateinit var cancelButton: Button
+    private lateinit var textView_GradeNum: TextView
+    private lateinit var textView_PhoneNum: TextView
+
+    val myeRf = Firebase.database.reference
+    val dateAndtime: LocalDateTime = LocalDateTime.now()
+    var onlyDate: LocalDate = LocalDate.now()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,48 +34,53 @@ class UserDataActivity : AppCompatActivity() {
         setContentView(R.layout.activity_user_data)
 
         // Phone Number
-        val number = intent.getStringExtra("number")
+        val strNumber = intent.getStringExtra("number")
 
         // Grade
+        var nGrade = 0
         radioGroup = findViewById(R.id.radioGroup_Grade)
 
+        var id = "00000"
+
         // Button, TextView
-        var phone = findViewById<TextView>(R.id.textView_PhoneNum)
-        var grade = findViewById<TextView>(R.id.textView_GradeNum)
-        okButton = findViewById(R.id.button_ok)
+        textView_PhoneNum = findViewById<TextView>(R.id.textView_PhoneNum)
+        textView_GradeNum = findViewById<TextView>(R.id.textView_GradeNum)
+        button_ok = findViewById(R.id.button_ok)
         cancelButton = findViewById(R.id.button_cancel)
 
         // Phone Number Display
-        phone.text = number
+        textView_PhoneNum.text = strNumber
 
         // Grad Display
         radioGroup.setOnCheckedChangeListener { _, checkedId ->
             val selectedRadioButton = findViewById<RadioButton>(checkedId)
             val selectedOption = selectedRadioButton.text.toString()
-            grade.text = selectedOption
+            textView_GradeNum.text = selectedOption
+            nGrade = selectedOption.toInt()
         }
 
         // OK Button
-        okButton.setOnClickListener {
+        button_ok.setOnClickListener {
             val selectedId = radioGroup.checkedRadioButtonId
             if (selectedId != -1) {
-                val selectedRadioButton: RadioButton = findViewById(selectedId)
-                val selectedOption = selectedRadioButton.text.toString()
 
-                val resultIntent = Intent().apply {
-                    putExtra("selected_option", selectedOption)
+                //all_button_enable(false)
+
+                val userData = UserData("NoData","1")
+                onlyDate = LocalDate.now()
+                id = strNumber + '_'+ nGrade.toString()
+
+                myeRf.child(this.onlyDate.toString()).child(id).setValue(userData).addOnSuccessListener {
+                    Toast.makeText(this, "New user save OK", Toast.LENGTH_SHORT).show()
+                }.addOnFailureListener{
+                    Toast.makeText(this, "New user save Fail !", Toast.LENGTH_SHORT).show()
                 }
-                setResult(RESULT_OK, resultIntent)
                 finish()
             }
         }
 
         // Cancel Button
         cancelButton.setOnClickListener {
-            val resultIntent = Intent().apply {
-                putExtra("selected_option", "0")
-            }
-            setResult(RESULT_OK, resultIntent)
             finish()
         }
 

@@ -43,10 +43,6 @@ class MyKeyboard @JvmOverloads constructor(
     // Our communication link to the EditText
     private var inputConnection1: InputConnection? = null
 
-    val myeRf = Firebase.database.reference
-    val dateAndtime: LocalDateTime = LocalDateTime.now()
-    var onlyDate: LocalDate = LocalDate.now()
-
     // constructors
     init {
         init(context, attrs)
@@ -152,30 +148,13 @@ class MyKeyboard @JvmOverloads constructor(
                 intent.putExtra("number", text)
                 v.context.startActivity(intent)
 
-                all_button_enable(false)
-                //all_button_visible(false)
-
-                val userData = UserData("NoData","1")
-                onlyDate = LocalDate.now()
-
-                myeRf.child(this.onlyDate.toString()).child(text.toString()).setValue(userData).addOnSuccessListener {
-                    Toast.makeText(this.getContext(), "New user save OK", Toast.LENGTH_SHORT).show()
-                    inputConnection1!!.deleteSurroundingText(1, 0)
-                    inputConnection1!!.deleteSurroundingText(1, 0)
-                    inputConnection1!!.deleteSurroundingText(1, 0)
-                    inputConnection1!!.deleteSurroundingText(1, 0)
-                    all_button_enable(true)
-                }.addOnFailureListener{
-                    Toast.makeText(this.getContext(), "New user save Fail !", Toast.LENGTH_SHORT).show()
-                    inputConnection1!!.deleteSurroundingText(1, 0)
-                    inputConnection1!!.deleteSurroundingText(1, 0)
-                    inputConnection1!!.deleteSurroundingText(1, 0)
-                    inputConnection1!!.deleteSurroundingText(1, 0)
-                    all_button_enable(true)
-                }
-            }
-            else {
-                Toast.makeText(this.getContext(), "Please enter 4 digits !", Toast.LENGTH_SHORT).show()
+                inputConnection1!!.deleteSurroundingText(1, 0)
+                inputConnection1!!.deleteSurroundingText(1, 0)
+                inputConnection1!!.deleteSurroundingText(1, 0)
+                inputConnection1!!.deleteSurroundingText(1, 0)
+            } else {
+                Toast.makeText(this.getContext(), "Please enter 4 digits !", Toast.LENGTH_SHORT)
+                    .show()
             }
         } else {
             val value = keyValues[v.id]
