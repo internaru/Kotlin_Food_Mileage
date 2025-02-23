@@ -1,40 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.shlee.inappkeyboard.MainActivity">
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentTop="true"
         android:background="#3F51B5"
-        android:textColor="#FFFFFF"
         android:gravity="center"
+        android:padding="5dp"
         android:text="@string/ics_food_mileage"
-        android:textStyle="bold"
-        android:padding="20dp"
-        android:textSize="30sp"/>
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="225dp"
-        android:layout_below="@id/textView1"
         android:src="@drawable/food_mileage_part2" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/imageView"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
-        android:orientation="vertical"
         android:padding="5dp"
         android:text="@string/phone_number"
         android:textSize="15sp"
@@ -42,9 +37,9 @@
 
     <EditText
         android:id="@+id/editText"
-        android:layout_width="361dp"
+        android:layout_width="match_parent"
         android:layout_height="104dp"
-        android:layout_below="@id/textView2"
+        android:layout_gravity="center_horizontal"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="0dp"
@@ -53,18 +48,23 @@
         android:layout_marginBottom="50dp"
         android:background="#c9c9f1"
         android:gravity="center_horizontal"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
         android:maxLength="4"
         android:maxLines="1"
-        android:minHeight="48dp"
+        android:minHeight="40dp"
         android:padding="5dp"
-        android:textSize="80sp"
+        android:textSize="60sp"
         tools:ignore="SpeakableTextPresentCheck,VisualLintTextFieldSize" />
 
     <com.shlee.inappkeyboard.MyKeyboard
         android:id="@+id/keyboard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_alignParentBottom="true"/>
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        android:background="#FFFFFF"
+        android:foregroundGravity="bottom"
+        android:gravity="bottom"
+        android:orientation="vertical" />
 
-</RelativeLayout>
+</LinearLayout>
