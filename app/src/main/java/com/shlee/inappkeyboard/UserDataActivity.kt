@@ -40,7 +40,7 @@ class UserDataActivity : AppCompatActivity() {
         var nGrade = 0
         radioGroup = findViewById(R.id.radioGroup_Grade)
 
-        var id = "00000"
+        var id = "000000"   // 6 digit (phone(4) + '_' + grade(1))
 
         // Button, TextView
         textView_PhoneNum = findViewById<TextView>(R.id.textView_PhoneNum)
