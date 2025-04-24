@@ -45,10 +45,10 @@ class MyKeyboard @JvmOverloads constructor(
 
     // constructors
     init {
-        init(context, attrs)
+        init(context)
     }
 
-    private fun init(context: Context, attrs: AttributeSet?) {
+    private fun init(context: Context) {
         // initialize buttons
 
         LayoutInflater.from(context).inflate(R.layout.keyboard, this, true)
@@ -93,35 +93,35 @@ class MyKeyboard @JvmOverloads constructor(
         keyValues.put(R.id.button_enter, "\n")
     }
 
-    private fun all_button_enable(boolean: Boolean) {
-        mButton1!!.setClickable(boolean)
-        mButton2!!.setClickable(boolean)
-        mButton3!!.setClickable(boolean)
-        mButton4!!.setClickable(boolean)
-        mButton5!!.setClickable(boolean)
-        mButton6!!.setClickable(boolean)
-        mButton7!!.setClickable(boolean)
-        mButton8!!.setClickable(boolean)
-        mButton9!!.setClickable(boolean)
-        mButton0!!.setClickable(boolean)
-        mButtonDelete!!.setClickable(boolean)
-        mButtonEnter!!.setClickable(boolean)
-    }
+//    private fun all_button_enable(boolean: Boolean) {
+//        mButton1!!.setClickable(boolean)
+//        mButton2!!.setClickable(boolean)
+//        mButton3!!.setClickable(boolean)
+//        mButton4!!.setClickable(boolean)
+//        mButton5!!.setClickable(boolean)
+//        mButton6!!.setClickable(boolean)
+//        mButton7!!.setClickable(boolean)
+//        mButton8!!.setClickable(boolean)
+//        mButton9!!.setClickable(boolean)
+//        mButton0!!.setClickable(boolean)
+//        mButtonDelete!!.setClickable(boolean)
+//        mButtonEnter!!.setClickable(boolean)
+//    }
 
-    private fun all_button_visible(boolean: Boolean) {
-        mButton1!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
-        mButton2!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
-        mButton3!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
-        mButton4!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
-        mButton5!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
-        mButton6!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
-        mButton7!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
-        mButton8!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
-        mButton9!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
-        mButton0!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
-        mButtonDelete!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
-        mButtonEnter!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
-    }
+//    private fun all_button_visible(boolean: Boolean) {
+//        mButton1!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+//        mButton2!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+//        mButton3!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+//        mButton4!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+//        mButton5!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+//        mButton6!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+//        mButton7!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+////        mButton8!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+//        mButton9!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+//        mButton0!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+//        mButtonDelete!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+//        mButtonEnter!!.visibility = (if (boolean) View.VISIBLE else View.INVISIBLE)
+//    }
 
     override fun onClick(v: View) {
         // do nothing if the InputConnection has not been set yet
