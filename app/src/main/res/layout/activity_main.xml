@@ -10,7 +10,7 @@
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#3F51B5"
+        android:background="#172154"
         android:gravity="center"
         android:padding="5dp"
         android:text="@string/ics_food_mileage"
