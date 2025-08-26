@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- 배경 흰색 -->
+    <solid android:color="#E91E63" />
+
+    <!-- 모서리 둥글게 -->
+    <corners android:radius="16dp" />
+
+    <!-- 내부 여백 -->
+    <padding
+        android:left="12dp"
+        android:top="8dp"
+        android:right="12dp"
+        android:bottom="8dp" />
+
+    <!-- 그림자 비슷한 효과 (stroke + semi-transparent) -->
+    <stroke
+        android:width="3dp"
+        android:color="#FF0000" />
+</shape>

@@ -16,37 +16,30 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.time.LocalDate
-import java.time.LocalDateTime
+import android.content.Context
+import android.view.LayoutInflater
+import java.time.ZoneId
 
-class FieldChecker {
-    private val database = Firebase.database
+fun showCustomToast(
+    context: Context,
+    message: String,
+    textSizeSp: Float = 24f,
+    color: String = "GREEN"
+) {
+    val inflater = LayoutInflater.from(context)
+    val layout = if(color == "GREEN")
+        inflater.inflate(R.layout.custom_toast_green, null)
+    else
+        inflater.inflate(R.layout.custom_toast_red, null)
 
-    // 특정 필드 존재 여부 확인
-    fun checkFieldExists(path: String, callback: (Boolean) -> Unit) {
-        val ref = database.getReference(path)
+    val textView = layout.findViewById<TextView>(R.id.toast_text)
+    textView.text = message
+    textView.textSize = textSizeSp
 
-        ref.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val exists = snapshot.exists()
-                callback(exists)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                println("확인 실패: ${error.message}")
-                callback(false)
-            }
-        })
-    }
-
-    // 사용 예시
-    fun checkUserMiles(userId: String) {
-        checkFieldExists("Lank/$userId/mileage") { exists ->
-            if (exists) {
-                println("mileage 필드가 존재합니다")
-            } else {
-                println("mileage 필드가 존재하지 않습니다")
-            }
-        }
+    Toast(context).apply {
+        duration = Toast.LENGTH_SHORT
+        view = layout
+        show()
     }
 }
 
@@ -57,37 +50,38 @@ class UserDataActivity : AppCompatActivity() {
     private lateinit var textView_GradeNum: TextView
     private lateinit var textView_PhoneNum: TextView
 
-    val myeRf = Firebase.database.reference
-    val database = Firebase.database
-    val dateAndtime: LocalDateTime = LocalDateTime.now()
-    var onlyDate: LocalDate = LocalDate.now()
+    private val myeRf = Firebase.database.reference
+    private val database = Firebase.database
+    val koreaZone = ZoneId.of("Asia/Seoul")
+    private var today: LocalDate = LocalDate.now(koreaZone)
 
-    fun getUserMilesInRank(userId: String, callback: (String?) -> Unit) {
-        val userRef = database.getReference("Rank/$userId/mileage")
+    private fun getUserDataInRank(userId: String, callback: (String?, String?) -> Unit) {
+        val userRef = database.getReference("Rank/$userId")
 
         userRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val userMiles = snapshot.getValue(String::class.java)
-                println("Rank 마일리지 읽기 성공: ${userMiles}")
-                callback(userMiles)
+                if (snapshot.exists()) {
+                    val userMileage = if (snapshot.hasChild("mileage")) {
+                        snapshot.child("mileage").getValue(String::class.java) ?: "0"
+                    } else {
+                        "NotExist"
+                    }
+                    val userUpdate = if (snapshot.hasChild("update")) {
+                        snapshot.child("update").getValue(String::class.java) ?: "0000-00-00"
+                    } else {
+                        "NotExist"
+                    }
+                    callback(userMileage, userUpdate)
+                }
+                else {
+                    callback(null, null)
+                }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                println("Rank 마일리지 읽기 실패: ${error.message}")
-                callback(null)
+                callback(null, null)
             }
         })
-    }
-
-    fun updateUserMilesInRank(userId: String, newMileage: String) {
-        database.getReference("Rank/$userId/mileage")
-            .setValue(newMileage)
-            .addOnSuccessListener {
-                println("Rank 업데이트 성공")
-            }
-            .addOnFailureListener { exception ->
-                println("Rank 업데이트 실패")
-            }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -128,37 +122,46 @@ class UserDataActivity : AppCompatActivity() {
 
                 //all_button_enable(false)
 
-                onlyDate = LocalDate.now()
-                val userData = UserData(onlyDate.toString(),"1")
+                today = LocalDate.now()
+//                today = LocalDate.now().minusDays(1)
+                val userData = UserData(today.toString(),"1")
                 id = strNumber + '_'+ nGrade.toString()
 
-                myeRf.child(this.onlyDate.toString()).child(id).setValue(userData).addOnSuccessListener {
+                myeRf.child(this.today.toString()).child(id).setValue(userData).addOnSuccessListener {
                 //myeRf.child("Rank").child(id).setValue(userData).addOnSuccessListener {
 
                     Toast.makeText(this, "Daily Record : Success", Toast.LENGTH_SHORT).show()
 
-                    getUserMilesInRank(id) { miles ->
+                    getUserDataInRank(id) { miles, date ->
                         // Exist already
-                        if (miles != null) {
-                            Toast.makeText(this, "Total Mileages : ${miles.toInt()+1}", Toast.LENGTH_LONG).show()
-                            println("누적 마일리지: ${miles+1}")
+                        if (miles != null && date != null) {
                             // Update
-                            updateUserMilesInRank(id, (miles.toInt()+1).toString())
+                            if (date != today.toString()) {
+                            //if ("0000-00-00" != today.toString()) {
+                                val userDataNew = UserData(today.toString(), (miles.toInt()+1).toString())
+                                myeRf.child("Rank").child(id).setValue(userDataNew).addOnSuccessListener {
+                                    showCustomToast(this, "Total Mileages : ${miles.toInt()+1}", 26f, "GREEN")
+                                }.addOnFailureListener{
+                                    showCustomToast(this, "Total Mileage : Fail", 26f, "RED")
+                                }
+                            }
+                            // Ignore
+                            else{
+                                showCustomToast(this, "1 Point a day",26f, "RED")
+                            }
                         }
                         // Not Exist
                         else {
                             // Create new user
                             myeRf.child("Rank").child(id).setValue(userData).addOnSuccessListener {
-                                Toast.makeText(this, "New user created in Rank : Success", Toast.LENGTH_SHORT).show()
-                                println("신규 번호 Rank 등록 성공")
+                                showCustomToast(this, "New user Mileages : 1", 26f, "GREEN")
                             }.addOnFailureListener{
-                                Toast.makeText(this, "New user created in Rank : Fail", Toast.LENGTH_SHORT).show()
-                                println("신규 번호 Rank 등록 실패")
+                                showCustomToast(this, "New user Registration : Fail",26f, "RED")
                             }
                         }
                     }
                 }.addOnFailureListener{
-                    Toast.makeText(this, "Daily Record : Fail", Toast.LENGTH_SHORT).show()
+                    showCustomToast(this, "Daily Record : Fail",26f, "RED")
                 }
                 finish()
             }
