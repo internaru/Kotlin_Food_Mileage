@@ -11,10 +11,7 @@ import android.view.inputmethod.InputConnection
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
-import java.time.LocalDate
-import java.time.LocalDateTime
+
 
 class MyKeyboard @JvmOverloads constructor(
     context: Context,

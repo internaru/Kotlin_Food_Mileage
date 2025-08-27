@@ -32,6 +32,15 @@ class MainActivity : AppCompatActivity() {
         editText.setRawInputType(InputType.TYPE_CLASS_NUMBER)
         editText.setTextIsSelectable(false)
 
+        // Network Check
+        checkInternet(this) { isConnected ->
+            if (isConnected) {
+                showCustomToast(this, "Network is available", 26f, "GREEN") // 연결됨
+            } else {
+                showCustomToast(this, "Network is not available", 26f, "RED")   // 연결 안됨
+            }
+        }
+
         // pass the InputConnection from the EditText to the keyboard
         val ic = editText.onCreateInputConnection(EditorInfo())
         keyboard.setInputConnection(ic)
@@ -52,17 +61,6 @@ class MainActivity : AppCompatActivity() {
                         View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
                         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
                         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
-        }
-    }
-    override fun onResume() {
-        super.onResume()
-
-        checkInternet(this) { isConnected ->
-            if (isConnected) {
-                showCustomToast(this, "Network is available", 26f, "GREEN") // 연결됨
-            } else {
-                showCustomToast(this, "Network is not available", 26f, "RED")   // 연결 안됨
-            }
         }
     }
 
