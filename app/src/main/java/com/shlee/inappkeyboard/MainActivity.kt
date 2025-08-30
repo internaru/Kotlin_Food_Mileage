@@ -16,11 +16,11 @@ import kotlinx.coroutines.withContext
 import java.net.HttpURLConnection
 import java.net.URL
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
+        class MainActivity : AppCompatActivity() {
+            override fun onCreate(savedInstanceState: Bundle?) {
+                super.onCreate(savedInstanceState)
+                setContentView(R.layout.activity_main)
         val editText = findViewById<View>(R.id.editText) as EditText
         val keyboard = findViewById<View>(R.id.keyboard) as MyKeyboard
 
@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 
             // 👉 스와이프로 꺼낼 수 있는 Immersive 모드
             controller.systemBarsBehavior =
-                WindowInsetsControllerCompat.BEHAVIOR_DEFAULT
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
     }
 
